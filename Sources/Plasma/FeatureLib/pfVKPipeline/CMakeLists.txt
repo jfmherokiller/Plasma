@@ -14,7 +14,9 @@ set(pfVKPipeline_HEADERS
     plVKPlateManager.h
 )
 
-plasma_library(pfVKPipeline SOURCES ${pfVKPipeline_SOURCES} ${pfVKPipeline_HEADERS})
+plasma_library(pfVKPipeline SOURCES ${pfVKPipeline_SOURCES} ${pfVKPipeline_HEADERS}
+        PRECOMPILED_HEADERS Pch.h
+)
 target_link_libraries(pfVKPipeline
     PUBLIC
         CoreLib
