@@ -42,7 +42,7 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //
 //  plVKPipeline Class Functions                                             //
-//  plPipeline derivative for OpenGL                                         //
+//  plPipeline derivative for Vulkan                                         //
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 

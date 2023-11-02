@@ -69,5 +69,5 @@ public:
 };
 
 
-#endif // _plGLDeviceRef_inc_
+#endif // _plVKDeviceRef_inc_
 

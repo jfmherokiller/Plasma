@@ -40,8 +40,8 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 *==LICENSE==*/
 
-#ifndef _plGLPlateManager_inc_
-#define _plGLPlateManager_inc_
+#ifndef _plVKPlateManager_inc_
+#define _plVKPlateManager_inc_
 
 #include "plPipeline/plPlates.h"
 
