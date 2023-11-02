@@ -40,33 +40,10 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 *==LICENSE==*/
 
-#ifndef pfAllCreatables_inc
-#define pfAllCreatables_inc
+#ifndef pfVKPipelineCreatable_inc
+#define pfVKPipelineCreatable_inc
 
-#include "pfAnimation/pfAnimationCreatable.h"
-#include "pfAudio/pfAudioCreatable.h"
-#include "pfCamera/pfCameraCreatable.h"
-#include "pfCharacter/pfCharacterCreatable.h"
-#include "pfConditional/plConditionalObjectCreatable.h"
-#include "pfConsole/pfConsoleCreatable.h"
+#include "plVKPipeline.h"
+REGISTER_NONCREATABLE(plVKPipeline);
 
-#ifdef PLASMA_PIPELINE_DX
-    #include "pfDXPipeline/pfDXPipelineCreatable.h"
-#endif
-
-#include "pfGameGUIMgr/pfGameGUIMgrCreatable.h"
-#include "pfGameMgr/pfGameMgrCreatable.h"
-
-#ifdef PLASMA_PIPELINE_GL
-    #include "pfGLPipeline/pfGLPipelineCreatable.h"
-#endif
-
-#ifdef PLASMA_PIPELINE_VK
-#include "pfVKPipeline/pfVKPipelineCreatable.h"
-#endif
-#include "pfJournalBook/pfJournalBookCreatable.h"
-#include "pfMessage/pfMessageCreatable.h"
-#include "pfPython/pfPythonCreatable.h"
-#include "pfSurface/pfSurfaceCreatable.h"
-
-#endif // pfAllCreatables_inc
+#endif // pfVKPipelineCreatable_inc

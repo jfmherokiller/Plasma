@@ -39,34 +39,45 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
       Mead, WA   99021
 
 *==LICENSE==*/
+#ifndef _plVKDevice_h_
+#define _plVKDevice_h_
 
-#ifndef pfAllCreatables_inc
-#define pfAllCreatables_inc
+#include "hsMatrix44.h"
 
-#include "pfAnimation/pfAnimationCreatable.h"
-#include "pfAudio/pfAudioCreatable.h"
-#include "pfCamera/pfCameraCreatable.h"
-#include "pfCharacter/pfCharacterCreatable.h"
-#include "pfConditional/plConditionalObjectCreatable.h"
-#include "pfConsole/pfConsoleCreatable.h"
+class plVKPipeline;
+class plRenderTarget;
 
-#ifdef PLASMA_PIPELINE_DX
-    #include "pfDXPipeline/pfDXPipelineCreatable.h"
+class plVKDevice
+{
+protected:
+    const char*         fErrorMsg;
+    plVKPipeline*       fPipeline;
+
+public:
+    plVKDevice();
+
+    /**
+     * Set rendering to the specified render target.
+     *
+     * Null rendertarget is the primary. Invalidates the state as required by
+     * experience, not documentation.
+     */
+    void SetRenderTarget(plRenderTarget* target);
+
+    /** Translate our viewport into a D3D viewport. */
+    void SetViewport();
+
+
+    void SetProjectionMatrix(const hsMatrix44& src);
+    void SetWorldToCameraMatrix(const hsMatrix44& src);
+    void SetLocalToWorldMatrix(const hsMatrix44& src);
+
+    struct VertexBufferRef;
+    struct IndexBufferRef;
+    struct TextureRef;
+
+    const char* GetErrorString() const { return fErrorMsg; }
+};
+
 #endif
 
-#include "pfGameGUIMgr/pfGameGUIMgrCreatable.h"
-#include "pfGameMgr/pfGameMgrCreatable.h"
-
-#ifdef PLASMA_PIPELINE_GL
-    #include "pfGLPipeline/pfGLPipelineCreatable.h"
-#endif
-
-#ifdef PLASMA_PIPELINE_VK
-#include "pfVKPipeline/pfVKPipelineCreatable.h"
-#endif
-#include "pfJournalBook/pfJournalBookCreatable.h"
-#include "pfMessage/pfMessageCreatable.h"
-#include "pfPython/pfPythonCreatable.h"
-#include "pfSurface/pfSurfaceCreatable.h"
-
-#endif // pfAllCreatables_inc

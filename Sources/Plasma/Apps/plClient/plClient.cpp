@@ -148,6 +148,9 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 #ifdef PLASMA_PIPELINE_GL
     #include "pfGLPipeline/plGLPipeline.h"
 #endif
+#ifdef PLASMA_PIPELINE_VK
+    #include "pfVKPipeline/plVKPipeline.h"
+#endif
 #include "pfJournalBook/pfJournalBook.h"
 #include "pfLocalizationMgr/pfLocalizationMgr.h"
 #include "pfMoviePlayer/plMoviePlayer.h"
@@ -427,6 +430,11 @@ plPipeline* plClient::ICreatePipeline(hsWindowHndl disp, hsWindowHndl hWnd, cons
 #ifdef PLASMA_PIPELINE_GL
     if (renderer == hsG3DDeviceSelector::kDevTypeOpenGL)
         return new plGLPipeline(disp, hWnd, devMode);
+#endif
+
+#ifdef PLASMA_PIPELINE_VK
+    if (renderer == hsG3DDeviceSelector::kDevTypeVulkan)
+        return new plVKPipeline(disp, hWnd, devMode);
 #endif
 
     return new plNullPipeline(disp, hWnd, devMode);

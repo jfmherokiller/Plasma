@@ -1008,12 +1008,17 @@ uint32_t ParseRendererArgument(const ST::string& requested)
     static std::unordered_set<ST::string, ST::hash_i, ST::equal_i> gl_args {
         "opengl"_st, "gl"_st
     };
-
+    static std::unordered_set<ST::string, ST::hash_i, ST::equal_i> vk_args {
+        "vulkan"_st,  "vk"_st
+    };
     if (dx_args.find(requested) != dx_args.end())
         return hsG3DDeviceSelector::kDevTypeDirect3D;
 
     if (gl_args.find(requested) != gl_args.end())
         return hsG3DDeviceSelector::kDevTypeOpenGL;
+
+    if (vk_args.find(requested) != vk_args.end())
+        return hsG3DDeviceSelector::kDevTypeVulkan;
 
     return hsG3DDeviceSelector::kDevTypeUnknown;
 }

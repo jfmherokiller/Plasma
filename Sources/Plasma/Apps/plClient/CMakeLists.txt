@@ -239,6 +239,7 @@ target_link_libraries(
         pfPython
         $<$<BOOL:${PLASMA_PIPELINE_DX}>:pfDXPipeline>
         $<$<BOOL:${PLASMA_PIPELINE_GL}>:pfGLPipeline>
+        $<$<BOOL:${PLASMA_PIPELINE_VK}>:pfVKPipeline>
         CURL::libcurl
 )
 target_include_directories(plClient PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")

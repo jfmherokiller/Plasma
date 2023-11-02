@@ -39,34 +39,35 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
       Mead, WA   99021
 
 *==LICENSE==*/
+#ifndef _plVKDeviceRef_inc_
+#define _plVKDeviceRef_inc_
 
-#ifndef pfAllCreatables_inc
-#define pfAllCreatables_inc
+#include "HeadSpin.h"
+#include "hsGDeviceRef.h"
 
-#include "pfAnimation/pfAnimationCreatable.h"
-#include "pfAudio/pfAudioCreatable.h"
-#include "pfCamera/pfCameraCreatable.h"
-#include "pfCharacter/pfCharacterCreatable.h"
-#include "pfConditional/plConditionalObjectCreatable.h"
-#include "pfConsole/pfConsoleCreatable.h"
+#include <epoxy/gl.h>
 
-#ifdef PLASMA_PIPELINE_DX
-    #include "pfDXPipeline/pfDXPipelineCreatable.h"
-#endif
+class plVKDeviceRef : public hsGDeviceRef
+{
+protected:
+    GLint fRef;
 
-#include "pfGameGUIMgr/pfGameGUIMgrCreatable.h"
-#include "pfGameMgr/pfGameMgrCreatable.h"
+    plVKDeviceRef*  fNext;
+    plVKDeviceRef** fBack;
 
-#ifdef PLASMA_PIPELINE_GL
-    #include "pfGLPipeline/pfGLPipelineCreatable.h"
-#endif
+public:
+    void            Unlink();
+    void            Link(plVKDeviceRef **back);
+    plVKDeviceRef*  GetNext() { return fNext; }
+    bool            IsLinked() { return fBack != nullptr; }
 
-#ifdef PLASMA_PIPELINE_VK
-#include "pfVKPipeline/pfVKPipelineCreatable.h"
-#endif
-#include "pfJournalBook/pfJournalBookCreatable.h"
-#include "pfMessage/pfMessageCreatable.h"
-#include "pfPython/pfPythonCreatable.h"
-#include "pfSurface/pfSurfaceCreatable.h"
+    virtual void    Release() = 0;
 
-#endif // pfAllCreatables_inc
+    plVKDeviceRef();
+
+    virtual ~plVKDeviceRef();
+};
+
+
+#endif // _plGLDeviceRef_inc_
+

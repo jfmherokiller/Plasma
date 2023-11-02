@@ -40,33 +40,26 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
 
 *==LICENSE==*/
 
-#ifndef pfAllCreatables_inc
-#define pfAllCreatables_inc
+#ifndef _plGLPlateManager_inc_
+#define _plGLPlateManager_inc_
 
-#include "pfAnimation/pfAnimationCreatable.h"
-#include "pfAudio/pfAudioCreatable.h"
-#include "pfCamera/pfCameraCreatable.h"
-#include "pfCharacter/pfCharacterCreatable.h"
-#include "pfConditional/plConditionalObjectCreatable.h"
-#include "pfConsole/pfConsoleCreatable.h"
+#include "plPipeline/plPlates.h"
 
-#ifdef PLASMA_PIPELINE_DX
-    #include "pfDXPipeline/pfDXPipelineCreatable.h"
-#endif
+class plVKPipeline;
 
-#include "pfGameGUIMgr/pfGameGUIMgrCreatable.h"
-#include "pfGameMgr/pfGameMgrCreatable.h"
 
-#ifdef PLASMA_PIPELINE_GL
-    #include "pfGLPipeline/pfGLPipelineCreatable.h"
-#endif
+class plVKPlateManager : public plPlateManager
+{
+    friend class plVKPipeline;
 
-#ifdef PLASMA_PIPELINE_VK
-#include "pfVKPipeline/pfVKPipelineCreatable.h"
-#endif
-#include "pfJournalBook/pfJournalBookCreatable.h"
-#include "pfMessage/pfMessageCreatable.h"
-#include "pfPython/pfPythonCreatable.h"
-#include "pfSurface/pfSurfaceCreatable.h"
+public:
+    virtual ~plVKPlateManager();
 
-#endif // pfAllCreatables_inc
+protected:
+    plVKPlateManager(plVKPipeline* pipe);
+
+    void IDrawToDevice(plPipeline* pipe) override;
+};
+
+#endif //_plGLPlateManager_inc_
+

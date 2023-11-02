@@ -162,6 +162,7 @@ const char* hsG3DDeviceRecord::GetG3DDeviceTypeName() const
         "Unknown",
         "Direct3D",
         "OpenGL"
+        "Vulkan"
     };
 
     uint32_t devType = GetG3DDeviceType();
@@ -369,6 +370,7 @@ bool hsG3DDeviceSelector::GetRequested(hsG3DDeviceModeRecord *dmr, uint32_t devT
     hsG3DDeviceRecord* iTnL = nullptr;
     hsG3DDeviceRecord* iD3D = nullptr;
     hsG3DDeviceRecord* iOpenGL = nullptr;
+    hsG3DDeviceRecord* iVulkan = nullptr;
     hsG3DDeviceRecord* device = nullptr;
 
     // Get an index for any 3D devices
@@ -396,6 +398,9 @@ bool hsG3DDeviceSelector::GetRequested(hsG3DDeviceModeRecord *dmr, uint32_t devT
             if (iOpenGL == nullptr || force)
                 iOpenGL = &record;
             break;
+        case kDevTypeVulkan:
+            if(iVulkan == nullptr || force)
+                iVulkan = &record;
         }
     }
 
@@ -406,6 +411,8 @@ bool hsG3DDeviceSelector::GetRequested(hsG3DDeviceModeRecord *dmr, uint32_t devT
         device = iD3D;
     else if (iOpenGL != nullptr)
         device = iOpenGL;
+    else if(iVulkan != nullptr)
+        device = iVulkan;
     else
         return false;
 

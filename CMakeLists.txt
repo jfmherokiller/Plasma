@@ -117,6 +117,7 @@ find_package(Threads REQUIRED)
 find_package(Vorbis REQUIRED)
 find_package(VPX)
 find_package(ZLIB REQUIRED)
+find_package(Vulkan)
 
 if(APPLE)
     find_package(Security)
@@ -143,7 +144,7 @@ endif(PLASMA_EXTERNAL_RELEASE)
 # Pipeline Renderers
 cmake_dependent_option(PLASMA_PIPELINE_DX "Enable DirectX rendering pipeline?" ON "DirectX_FOUND" OFF)
 cmake_dependent_option(PLASMA_PIPELINE_GL "Enable OpenGL rendering pipeline?" ON "TARGET epoxy::epoxy" OFF)
-
+cmake_dependent_option(PLASMA_PIPELINE_VK "Enable Vulkan rendering pipeline?" ON "Vulkan_FOUND" OFF)
 if(PLASMA_PIPELINE_DX)
     add_definitions(-DPLASMA_PIPELINE_DX)
 endif(PLASMA_PIPELINE_DX)
@@ -151,6 +152,10 @@ endif(PLASMA_PIPELINE_DX)
 if(PLASMA_PIPELINE_GL)
     add_definitions(-DPLASMA_PIPELINE_GL)
 endif(PLASMA_PIPELINE_GL)
+
+if(PLASMA_PIPELINE_VK)
+    add_definitions(-DPLASMA_PIPELINE_VK)
+endif(PLASMA_PIPELINE_VK)
 
 # Allow us to disable certain parts of the build
 option(PLASMA_BUILD_CLIENT "Do we want to build plClient?" ON)

@@ -956,6 +956,7 @@ CLASS_INDEX_LIST_START
     CLASS_INDEX(plLoadClothingMsg),
     CLASS_INDEX(plNullPipeline),
     CLASS_INDEX(plGLPipeline),
+    CLASS_INDEX(plVKPipeline),
     CLASS_INDEX(plSDLModifierStateMsg),
     CLASS_INDEX(plConfirmationMsg),
     CLASS_INDEX(plLocalizedConfirmationMsg),

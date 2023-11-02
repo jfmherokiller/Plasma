@@ -39,34 +39,53 @@ You can contact Cyan Worlds, Inc. by email legal@cyan.com
       Mead, WA   99021
 
 *==LICENSE==*/
+#include "plPipeline/hsWinRef.h"
 
-#ifndef pfAllCreatables_inc
-#define pfAllCreatables_inc
+#include "plVKPipeline.h"
+#include "plVKDeviceRef.h"
 
-#include "pfAnimation/pfAnimationCreatable.h"
-#include "pfAudio/pfAudioCreatable.h"
-#include "pfCamera/pfCameraCreatable.h"
-#include "pfCharacter/pfCharacterCreatable.h"
-#include "pfConditional/plConditionalObjectCreatable.h"
-#include "pfConsole/pfConsoleCreatable.h"
+#include "plProfile.h"
+#include "plStatusLog/plStatusLog.h"
 
-#ifdef PLASMA_PIPELINE_DX
-    #include "pfDXPipeline/pfDXPipelineCreatable.h"
-#endif
+plProfile_CreateMemCounter("Vertices", "Memory", MemVertex);
+plProfile_CreateMemCounter("Indices", "Memory", MemIndex);
+plProfile_CreateMemCounter("Textures", "Memory", MemTexture);
 
-#include "pfGameGUIMgr/pfGameGUIMgrCreatable.h"
-#include "pfGameMgr/pfGameMgrCreatable.h"
 
-#ifdef PLASMA_PIPELINE_GL
-    #include "pfGLPipeline/pfGLPipelineCreatable.h"
-#endif
+/*****************************************************************************
+ ** Generic plGLDeviceRef Functions                                         **
+ *****************************************************************************/
+plVKDeviceRef::plVKDeviceRef()
+{
+    fNext = nullptr;
+    fBack = nullptr;
+}
 
-#ifdef PLASMA_PIPELINE_VK
-#include "pfVKPipeline/pfVKPipelineCreatable.h"
-#endif
-#include "pfJournalBook/pfJournalBookCreatable.h"
-#include "pfMessage/pfMessageCreatable.h"
-#include "pfPython/pfPythonCreatable.h"
-#include "pfSurface/pfSurfaceCreatable.h"
+plVKDeviceRef::~plVKDeviceRef()
+{
+    if (fNext != nullptr || fBack != nullptr)
+        Unlink();
+}
 
-#endif // pfAllCreatables_inc
+void plVKDeviceRef::Unlink()
+{
+    hsAssert(fBack, "plGLDeviceRef not in list");
+
+    if (fNext)
+        fNext->fBack = fBack;
+    *fBack = fNext;
+
+    fBack = nullptr;
+    fNext = nullptr;
+}
+
+void plVKDeviceRef::Link(plVKDeviceRef** back)
+{
+    hsAssert(fNext == nullptr && fBack == nullptr, "Trying to link a plGLDeviceRef that's already linked");
+
+    fNext = *back;
+    if (*back)
+        (*back)->fBack = &fNext;
+    fBack = back;
+    *back = this;
+}
